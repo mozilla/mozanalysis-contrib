@@ -1,8 +1,11 @@
-e Mozilla Public
+# This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-def calculateDateWindow(plot_start_date, plot_end_date, smoothing, comparison_mode, metric):
+
+def calculateDateWindow(
+        plot_start_date, plot_end_date, smoothing, comparison_mode, metric
+    ):
     start_window = plot_start_date - \
         pd.DateOffset(days=smoothing-1) - \
         pd.DateOffset(days=metricDaysNeededPre[metric]) - \
@@ -12,7 +15,10 @@ def calculateDateWindow(plot_start_date, plot_end_date, smoothing, comparison_mo
         pd.DateOffset(days=metricDaysNeededPost[metric])
     window = [(start_window, end_window)]
     if comparison_mode in ["YoY", "Last Year"]:
-        window = window + [(start_window - pd.DateOffset(years=1), end_window - pd.DateOffset(years=1))]
+        window = window + [(
+            start_window - pd.DateOffset(years=1),
+            end_window - pd.DateOffset(years=1)
+        )]
     return window
 
 def doSmoothing(data, usage_criteria, dimension_cols, smoothing_lookback):
