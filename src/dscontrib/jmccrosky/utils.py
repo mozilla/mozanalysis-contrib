@@ -2,10 +2,12 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+import pandas as import pd
+
 
 def calculateDateWindow(
         plot_start_date, plot_end_date, smoothing, comparison_mode, metric
-    ):
+):
     start_window = plot_start_date - \
         pd.DateOffset(days=smoothing-1) - \
         pd.DateOffset(days=metricDaysNeededPre[metric]) - \
