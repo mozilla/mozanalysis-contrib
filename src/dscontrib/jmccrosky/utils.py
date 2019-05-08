@@ -2,7 +2,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-import pandas as import pd
+import pandas as pd
 
 
 def calculateDateWindow(
@@ -23,8 +23,9 @@ def calculateDateWindow(
         )]
     return window
 
+
 def doSmoothing(data, usage_criteria, dimension_cols, smoothing_lookback):
-    windowSpec =  Window.partitionBy(
+    windowSpec = Window.partitionBy(
         [data.bucket]
     ).orderBy(
         data.date

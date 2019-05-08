@@ -4,11 +4,13 @@
 
 import numpy as np
 
+from dscontrib.jmccrosky.usage_criteria import usage_criteria
+
 
 def MetricPlot(
     plot_start_date, plot_end_date,
-    feature, dimensions, metric,
-    smoothing = 1,
+    criterium, dimensions, metric,
+    smoothing=1,
     extra_filter="TRUE",
     comparison_mode="None",
     transformations=[],
@@ -20,7 +22,7 @@ def MetricPlot(
     y_max=None,
     suppress_ci=False
 ):
-    feature_col = features[feature]
+    feature_col = usage_criteria[criterium]
     needed_dimension_variables = list(set().union(*(d.keys() for d in dimensions)))
     buckets_list = ["{:.1f}".format(i) for i in range(jackknife_buckets)]
     date_window = calculateDateWindow(plot_start_date, plot_end_date, smoothing, comparison_mode, metric)
@@ -160,14 +162,14 @@ def MetricPlot(
             ytitle = '{}{}'.format(metric, (" (Proportion)" if "Normalize" in transformations else (" (YoY Percent Change)" if comparison_mode == "YoY" else "")))
             if comparison_mode == "Slices":
                 ytitle = "Percent of {}".format(metric)
-            if (metric in ["Week 1 Retention (excluding single-day profiles)", "Week 1 Retention"]) or (feature=="New Profile"):
+            if (metric in ["Week 1 Retention (excluding single-day profiles)", "Week 1 Retention"]) or (criterium=="New Profile"):
                 x_label = "Profile Creation Date"
             layout = go.Layout(
                 showlegend=(True if comparison_mode=="Slices" else None),
                 autosize=force_width is None,
                 width=force_width,
                 height=force_height,
-                title='{} ({}) Over Time'.format(metric, feature) + (" (Restricted to {})".format(
+                title='{} ({}) Over Time'.format(metric, criterium) + (" (Restricted to {})".format(
                     dimensionName(dimensions[0])) if (len(dimensions) == 1 and len(dimensions[0])!=0) else ""
                 ),
                 xaxis=dict(
