@@ -178,18 +178,18 @@ def MetricPlot(
                     [(float(c-o)/o) * 100 for c, o in zip(cur_all, old_all)],
                 "ci" + dimensionName(dim):
                     [
-                        jackknifeMeanCI([(float(i-j)/j) * 100 for i, j in zip(x, y)])
-                        for x, y in zip(cur_buckets, old_buckets)
+                        jackknifeMeanCI([(float(i-j)/j) * 100 for i, j in zip(c, o)])
+                        for c, o in zip(cur_buckets, old_buckets)
                     ],
             })
         if comparison_mode == "Slices":
             plot_data.update({
                 "value" + dimensionName(dim):
-                    [(float(x)/y) * 100 for x, y in zip(cur_all1, cur_all2)],
+                    [(float(c1)/c2) * 100 for c1, c2 in zip(cur_all1, cur_all2)],
                 "ci" + dimensionName(dim):
                     [jackknifeMeanCI(
-                        [(float(i)/j) * 100 for i, j in zip(x, y)]
-                    ) for x, y in zip(cur_buckets1, cur_buckets2)],
+                        [(float(i)/j) * 100 for i, j in zip(c1, c2)]
+                    ) for c1, c2 in zip(cur_buckets1, cur_buckets2)],
             })
         if comparison_mode == "Last Year":
             plot_data.update({
