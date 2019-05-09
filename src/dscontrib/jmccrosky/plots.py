@@ -175,7 +175,7 @@ def MetricPlot(
         if comparison_mode == "YoY":
             plot_data.update({
                 "value" + dimensionName(dim):
-                    [(float(x-y)/y) * 100 for x, y in zip(cur_all, old_all)],
+                    [(float(c-o)/o) * 100 for c, o in zip(cur_all, old_all)],
                 "ci" + dimensionName(dim):
                     [
                         jackknifeMeanCI([(float(i-j)/j) * 100 for i, j in zip(x, y)])
